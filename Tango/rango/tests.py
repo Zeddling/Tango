@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.http import response
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.staticfiles import finders
@@ -68,6 +69,11 @@ class CategoryPageTests(TestCase):
     def test_nav_link_to_index(self):
         response = self.client.get(reverse('show_category', args=['python']))
         self.assertIn(b'<a href="/rango"', response.content)
+    
+    def test_cookie_is_set(self):
+        response = self.client.get(reverse('show_category', args=['python']))
+        print("Cookies are:", response.cookies.items())
+        self.assertIsNotNone(response.cookies)
 
 
 class GeneralTests(TestCase):
