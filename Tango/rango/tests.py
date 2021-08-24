@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.staticfiles import finders
@@ -27,14 +28,13 @@ class AdminPageTests(TestCase):
 
 class CategoryFormTests(TestCase):
     def setUp(self):
-        try:
-            from .forms import CategoryForm
-        except ImportError:
-            print('The module forms does not exist')
-        except NameError as e:
-            print(e)
-        except:
-            print('Something else went wrong :-(')
+        self.user = User.objects.create_user(username="test", password="12345")
+        self.user.save()
+        self.client.login(username="test", password="12345")
+    
+    def tearDown(self):
+        self.client.logout()
+        self.user.delete()
     
     def test_link_to_category_form_in_index_page(self):
         response = self.client.get(reverse('index'))
@@ -121,6 +121,12 @@ class IndexPageTests(TestCase):
         self.assertIn(b'Most Viewed Pages', response.content)
 
 
+class LoginPageTests(TestCase):
+    def test_login_template_is_used(self):
+        response = self.client.get(reverse('login'))
+        self.assertTemplateUsed(response, 'rango/login.html')
+
+
 class ModelTests(TestCase):
     def setUp(self):
         try:
@@ -166,14 +172,13 @@ class ModelTests(TestCase):
 
 class PageFormTests(TestCase):
     def setUp(self):
-        try:
-            from .forms import PageForm
-        except ImportError:
-            print('The module forms does not exist')
-        except NameError as e:
-            print(e)
-        except:
-            print('Something else went wrong :-(')
+        self.user = User.objects.create_user(username="test", password="12345")
+        self.user.save()
+        self.client.login(username="test", password="12345")
+    
+    def tearDown(self):
+        self.client.logout()
+        self.user.delete()
 
     def test_add_page_exists(self):
         response = self.client.get(reverse('add_page', args=['python']))
@@ -182,3 +187,13 @@ class PageFormTests(TestCase):
     def test_assert_form_is_generated(self):
         response = self.client.get(reverse('add_page', args=['python']))
         self.assertIn(b'<label', response.content)
+
+
+class RegisterPageTests(TestCase):
+    def test_template_is_used(self):
+        response = self.client.get(reverse('register'))
+        self.assertTemplateUsed(response, 'rango/register.html')
+    
+    def test_form_is_generated(self):
+        response = self.client.get(reverse('register'))
+        self.assertIn(b'<input type="text"', response.content)

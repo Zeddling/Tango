@@ -1,3 +1,7 @@
 .rango-image {
     width: 200px;
 }
+
+.text-error {
+    color: red;
+}
