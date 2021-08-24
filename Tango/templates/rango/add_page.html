@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ category.name }}
+{% endblock title %}
+
+{% block content %}
+    <h1>Add a Page</h1>
+    <div>
+        <form action="/rango/category/add_page/{{category.slug}}" method="post" id="page_form">
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.label_tag }}{{ field }}
+            {% endfor %}
+            <input type="submit" value="Create Page" name="submit">
+        </form>
+    </div>
+{% endblock content %}

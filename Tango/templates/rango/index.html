@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <h1>Rango says...</h1>
+    <div>
+        <p>Hey there partner</p>
+    </div>
+    <div>
+        <h3>Most Liked Categories</h3>
+        {% if most_likes %}
+            <ul>
+                {% for category in most_likes %}
+                    <li>
+                        <a href="{% url 'show_category' category.slug%}">
+                            {{ category.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>There are no categories present.</strong>
+        {% endif %}
+    </div>
+    <div>
+        <h3>Most Viewed Pages</h3>
+        {% if most_views %}
+            <ul>
+                {% for page in most_views %}
+                    <li>
+                        <a href="{{ page.url }}">
+                            {{ page.title }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+        {% endif %}
+    </div>
+    <div>
+        <a href="{% url 'about' %}">
+            About
+        </a><br>
+        <img src="{% static 'images/rango.jpg' %}" class="rango-image" alt="Picture of Rango">
+    </div>
+    <div>
+        <a href="{% url 'add_category' %}">
+            Add a New Category
+        </a><br>
+    </div>
+{% endblock content %}

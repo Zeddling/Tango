@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    About
+{% endblock title %}
+
+{% block content %}
+    <h1>Rango</h1>
+    <a href="{% url 'index' %}">Home</a>
+    <p>
+        {{ boldmessage }}
+    </p>
+    <img src="{{MEDIA_URL}}rangi2.jpeg" alt="Picture of villains" class="rango-image">
+    <p>This tutorial has been put together by {{name}}</p>
+{% endblock %}
