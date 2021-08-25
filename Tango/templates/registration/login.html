@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Login
+{% endblock title %}
+
+{% block content %}
+    <h1>Login to Rango</h1>
+    <form action="{% url 'auth_login' %}" method="post" id="login_form">
+        {% csrf_token %}
+        <p class="text-error">
+            {{ error }}
+        </p>
+        {{ form.as_p }}
+        <input type="submit" value="Login" />
+        <input type="hidden" name="next" value="{{ next }}">
+    </form>
+
+    <div>
+        
+        <p>
+            Not a member?
+            <a href="{% url 'registration_register' %}">Register</a>
+        </p>
+    </div>
+{% endblock %}

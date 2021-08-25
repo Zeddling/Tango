@@ -17,6 +17,10 @@ class AboutPageTests(TestCase):
     def test_about_contain_image(self):
         response = self.client.get(reverse('about'))
         self.assertIn(b'img src="/media/', response.content)
+    
+    def test_sessionid_cookie_is_set(self):
+        response = self.client.get(reverse('about'))
+        self.assertIn('sessionid', response.client.cookies)
 
 
 class AdminPageTests(TestCase):
@@ -69,11 +73,6 @@ class CategoryPageTests(TestCase):
     def test_nav_link_to_index(self):
         response = self.client.get(reverse('show_category', args=['python']))
         self.assertIn(b'<a href="/rango"', response.content)
-    
-    def test_cookie_is_set(self):
-        response = self.client.get(reverse('show_category', args=['python']))
-        print("Cookies are:", response.cookies.items())
-        self.assertIsNotNone(response.cookies)
 
 
 class GeneralTests(TestCase):
@@ -125,12 +124,6 @@ class IndexPageTests(TestCase):
         response = self.client.get(reverse('index'))
         self.assertIn(b'Most Liked Categories', response.content)
         self.assertIn(b'Most Viewed Pages', response.content)
-
-
-class LoginPageTests(TestCase):
-    def test_login_template_is_used(self):
-        response = self.client.get(reverse('login'))
-        self.assertTemplateUsed(response, 'rango/login.html')
 
 
 class ModelTests(TestCase):
@@ -193,13 +186,3 @@ class PageFormTests(TestCase):
     def test_assert_form_is_generated(self):
         response = self.client.get(reverse('add_page', args=['python']))
         self.assertIn(b'<label', response.content)
-
-
-class RegisterPageTests(TestCase):
-    def test_template_is_used(self):
-        response = self.client.get(reverse('register'))
-        self.assertTemplateUsed(response, 'rango/register.html')
-    
-    def test_form_is_generated(self):
-        response = self.client.get(reverse('register'))
-        self.assertIn(b'<input type="text"', response.content)

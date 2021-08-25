@@ -39,6 +39,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'registration',     #   Should be immediately above admin
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -139,6 +140,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #   Media files
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+    
 
-#   Security Configs
-LOGIN_URL = '/rango/login/'
+#   Django Registration config
+REGISTRATION_OPEN=True
+ACCOUNT_ACTIVATION_DAYS=7
+REGISTRATION_AUTO_LOGIN=True
+LOGIN_REDIRECT_URL='/rango/'
+LOGIN_URL = '/accounts/login/'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_EMAIL_VERIFICATION = "none"

@@ -15,20 +15,22 @@ Including another URLconf
 """
 
 from django.conf import settings
+from django.conf.urls import include
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-from rango import views
+from registration.backends.simple.views import RegistrationView
+
+#   Handle on register redirection
+class ModifiedRegistrationView(RegistrationView):
+    def get_success_url(self, user):
+        return '/rango'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('rango', views.index, name='index'),
-    path('rango/about', views.about, name='about'),
-    path('rango/category/add_category', views.add_category, name="add_category"),
-    path('rango/category/add_page/<slug:category_name_slug>', views.add_page, name="add_page"),
-    path('rango/category/<slug:category_name_slug>', views.show_category, name='show_category'),
-    path('rango/login', views.user_login, name='login'),
-    path('rango/logout', views.user_logout, name='logout'),
-    path('rango/register', views.register, name='register'),
-    path('restricted', views.restricted, name='restricted')
+    path('accounts/', include('registration.backends.default.urls')),
+    path('accounts/register', ModifiedRegistrationView.as_view(), name='registration_register'),
+    path('rango/', include('rango.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
