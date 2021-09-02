@@ -70,10 +70,6 @@ class CategoryPageTests(TestCase):
         response = self.client.get(reverse('show_category', args=['python']))
         self.assertTemplateUsed(response, 'rango/category.html')
 
-    def test_nav_link_to_index(self):
-        response = self.client.get(reverse('show_category', args=['python']))
-        self.assertIn(b'<a href="/rango"', response.content)
-
 
 class GeneralTests(TestCase):
     def test_serving_static_files(self):
@@ -190,9 +186,18 @@ class PageFormTests(TestCase):
 class UserProfileFormTests(TestCase):
     def test_user_profile_form_page_exists(self):
         response = self.client.get(reverse('register_profile'))
-        self.assertTemplateUsed(response, 'rango/register_profile.html')
+        self.assertTemplateUsed(response, 'rango/profile_registration.html')
 
 class UserProfilePageTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username="test", password="12345")
+        self.user.save()
+        self.client.login(username="test", password="12345")
+    
+    def tearDown(self):
+        self.client.logout()
+        self.user.delete()
+
     def test_user_profile_page_exists(self):
-        response = self.client.get(reverse('profile'))
+        response = self.client.get(reverse('profile', args=['test']))
         self.assertTemplateUsed(response, 'rango/profile.html')

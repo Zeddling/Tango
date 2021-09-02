@@ -178,9 +178,7 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
 
-@login_required
 def user_profile(request):
-    form = UserProfileForm()
     if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -192,13 +190,15 @@ def user_profile(request):
         else:
             print(form.errors)
     
-    context_dict = {'form': form}
+    else:
+        form = UserProfileForm()
+        context_dict = {'form': form}
 
-    return render(
-        request,
-        'rango/profile_registration.html',
-        context_dict
-    )
+        return render(
+            request,
+            'rango/profile_registration.html',
+            context_dict
+        )
 
 def visitor_cookie_handler(request):
     visits = int(get_server_side_cookie(request, 'visits', '1'))
