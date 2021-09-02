@@ -7,44 +7,54 @@
 {% endblock title %}
 
 {% block content %}
-    <h1>Rango says...</h1>
-    {% if user.is_authenticated %}
-        <p>Howdy {{ user.username }}!</p>
-    {% else %}
-        <p>Hey there partner</p>
-    {% endif %}
-    <div>
-        <h3>Most Liked Categories</h3>
-        {% if most_likes %}
-            <ul>
-                {% for category in most_likes %}
-                    <li>
-                        <a href="{% url 'show_category' category.slug%}">
-                            {{ category.name }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
+    <div class="container-fluid text-white bg-dark rounded-3 py-5" style="margin-top: 30px;">
+        <h1 class="display-5 fw-bold">Rango says...</h1>
+        {% if user.is_authenticated %}
+            <p class="col-md-8 fs-4">Howdy {{ user.username }}!</p>
         {% else %}
-            <strong>There are no categories present.</strong>
+            <p class="col-md-8 fs-4">Hey there partner</p>
         {% endif %}
     </div>
-    <div>
-        <h3>Most Viewed Pages</h3>
-        {% if most_views %}
-            <ul>
-                {% for page in most_views %}
-                    <li>
-                        <a href="{{ page.url }}">
-                            {{ page.title }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-        {% endif %}
+
+    <div class="row align-items-md-stretch margin-bottom-md">
+        <div class="col-md-6">
+            <div class="h-100 p-5 rounded-3 jumbotron-green">
+                <h3>Most Liked Categories</h3>
+                {% if most_likes %}
+                    <ul>
+                        {% for category in most_likes %}
+                            <li>
+                                <a href="{% url 'show_category' category.slug%}">
+                                    {{ category.name }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <strong>There are no categories present.</strong>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="h-100 p-5 rounded-3 jumbotron-blue">
+                <h3>Most Viewed Pages</h3>
+                {% if most_views %}
+                    <ul>
+                        {% for page in most_views %}
+                            <li>
+                                <a href="{% url 'goto' %}?page_id={{page.id}}">
+                                    {{ page.title }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <strong>There are no categories present.</strong>
+                {% endif %}
+            </div>
+        </div>
     </div>
-    <img src="{% static "images/rango.jpg" %}" alt="Picture of Rango" class="rango-image" /> 
+    <img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango" class="rango-image" /> 
     <ul>
         {% if user.is_authenticated %}
             <li><a href="{% url 'auth_logout' %}?next=/rango">Logout</a></li>
@@ -56,4 +66,5 @@
         <li><a href="{% url 'about' %}">About</a></li>
         <li><a href="{% url 'index' %}">Index</a></li>
     </ul>
+
 {% endblock content %}

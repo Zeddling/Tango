@@ -1,11 +1,117 @@
+.bg-grey {
+    background-color: grey;
+}
+
+body {
+    background-color: aliceblue;
+}
+
+.border-radius-10 {
+    border-radius: 10px;
+}
+
+#img-login-logo {
+    width: 150px;
+}
+
+#footer {
+    position: relative;
+    left: 110px;
+}
+
+#profile-data label {
+    font-weight: bold;
+}
+
+.jumbotron-blue {
+    background-color: rgb(82, 209, 203);
+    color: white;
+
+    position: relative;
+    top: 20px;
+}
+
+.jumbotron-green {
+    background-color: rgb(147, 226, 110);
+    color: white;
+
+    position: relative;
+    top: 20px;
+}
+
+#login-form {
+    /** Positioning */
+    position: relative;
+    top: 20%; 
+    left: 30%; 
+    width: 30%;
+}
+
 #navigation-bar {
     display: block ruby;
+}
+
+.margin-sm {
+    margin: 10px;
+}
+
+.margin-bottom-sm {
+    margin-bottom: 10px;
+}
+
+.margin-bottom-md {
+    margin-bottom: 50px;
+}
+
+.margin-top-sm {
+    margin-top: 10px;
+}
+
+.margin-top-md {
+    margin-top: 30px;
+}
+
+#profile-picture {
+    width: 300px;
 }
 
 .rango-image {
     width: 200px;
 }
 
+#registration-form {
+    /** Positioning */
+    position: relative;
+    top: 10%; 
+    left: 25%; 
+}
+
+.sidebar-heading {
+    font-size: 14px;
+    font-weight: bold;
+
+    position: relative;
+    left: 30px;
+}
+
+.sidebar-link {
+    color: rgb(88, 88, 88);
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.sidebar-link:hover{
+    color: black;
+}
+
+.sidebar-link-active {
+    background-color: rgb(172, 172, 172);
+}
+
 .text-error {
     color: red;
+}
+
+.w-md {
+    width: 30em;
 }

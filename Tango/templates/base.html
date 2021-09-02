@@ -15,6 +15,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <!--Custom dashboard CSS-->
     <link rel="stylesheet" href="https://getbootstrap.com/docs/5.1/examples/dashboard/dashboard.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">    
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
@@ -25,27 +26,24 @@
         </button>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: block ruby;">
             <li class="nav-item">
-                <a href="{% url 'index' %}" class="nav-link px-3">Home</a>                  
+                <a href="{% url 'index' %}" class="nav-link px-3 text-white">Home</a>                  
             </li>
             <li class="nav-item">
-                <a href="{% url 'about' %}" class="nav-link px-3">About</a>  
+                <a href="{% url 'about' %}" class="nav-link px-3 text-white">About</a>  
             </li>
-            <form class="d-flex" style="width: 770px">
-                <input id="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            </form>
             {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a href="{% url 'add_category' %}" class="nav-link px-3">Create a New Category</a>
+                    <a href="{% url 'add_category' %}" class="nav-link px-3 text-white">Create a New Category</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{% url 'logout' %}" class="nav-link px-3">Logout</a>
+                    <a href="{% url 'logout' %}" class="nav-link px-3 text-white">Logout</a>
                 </li>
             {% else %}
                 <li class="nav-item">
-                    <a href="{% url 'registration_register' %}" class="nav-link px-3">Register</a>
+                    <a href="{% url 'registration_register' %}" class="nav-link px-3 text-white">Register</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{% url 'auth_login' %}" class="nav-link px-3">Login</a>
+                    <a href="{% url 'auth_login' %}" class="nav-link px-3 text-white">Login</a>
                 </li>
             {% endif %}
         </ul>
@@ -54,6 +52,49 @@
         <div class="row">
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
                 <div class="position-sticky pt-3">
+                    <div class="row sidebar-heading">
+                        <div class="col-sm-1">
+                            <i class="material-icons">dashboard</i>
+                        </div>
+                        <div class="col-2">
+                            <p>Dashboard</p>
+                        </div>
+                    </div>
+                    <ul>
+                        <li class="list-unstyled margin-bottom-sm">
+                            <a href="{% url 'index' %}" class="sidebar-link">Home</a>
+                        </li>
+                        <li class="list-unstyled margin-bottom-sm ">
+                            <a href="{% url 'about' %}" class="sidebar-link">About</a>  
+                        </li>
+                        {% if user.is_authenticated %}
+                            <li class="list-unstyled margin-bottom-sm">
+                                <a href="{% url 'profile' user.username %}" class="sidebar-link">Profile</a>
+                            </li>
+                            <li class="list-unstyled margin-bottom-sm ">
+                                <a href="{% url 'add_category' %}" class="sidebar-link">Add Category</a>
+                            </li>
+                            <li class="list-unstyled margin-bottom-sm ">
+                                <a href="{% url 'logout' %}" class="sidebar-link">Logout</a>
+                            </li>
+                        {% else %}
+                            <li class="list-unstyled margin-bottom-sm ">
+                                <a href="{% url 'auth_login' %}" class="sidebar-link">Login</a>
+                            </li>                        
+                            <li class="list-unstyled margin-bottom-sm ">
+                                <a href="{% url 'registration_register' %}" class="sidebar-link">Register</a>
+                            </li>
+                        {% endif %}                    
+                    </ul>
+                    <br>
+                    <div class="row sidebar-heading">
+                        <div class="col-sm-1">
+                            <i class="material-icons">reorder</i>
+                        </div>
+                        <div class="col-2">
+                            <p>Categories</p>
+                        </div>
+                    </div>
                     <ul class="nav flex-column">
                         {% block sidebar %}
                             {% category_list %}
@@ -61,7 +102,7 @@
                     </ul>
                 </div>
             </nav>
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 margin-top">
                 {% block content %}
                 {% endblock content %}
             </main>

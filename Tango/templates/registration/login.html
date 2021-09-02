@@ -6,22 +6,32 @@
 {% endblock title %}
 
 {% block content %}
-    <h1>Login to Rango</h1>
-    <form action="{% url 'auth_login' %}" method="post" id="login_form">
-        {% csrf_token %}
-        <p class="text-error">
-            {{ error }}
-        </p>
-        {{ form.as_p }}
-        <input type="submit" value="Login" />
-        <input type="hidden" name="next" value="{{ next }}">
-    </form>
-
-    <div>
-        
-        <p>
-            Not a member?
-            <a href="{% url 'registration_register' %}">Register</a>
-        </p>
+    <div class="form-signin position-relative text-center card border-radius-10 w-md" id="login-form">
+        <div class="card-body">
+            <div class="margin-sm">
+                <form class="" action="." role="form" method="post" id="login_form" >
+                    <img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango" id="img-login-logo">
+                    {% csrf_token %}
+                    <p class="text-error">
+                        {{ error }}
+                    </p>
+                    <h2 class="form-signin-heading">Please sign in</h2>
+                    <div class="mb-3 row">
+                        <input type="text" name="username" id="id_username" class="form-control" placeholder="Username" required autofocus>
+                    </div>
+                    <div class="mb-3 row">
+                        <input type="password" name="password" id="id_password" class="form-control" placeholder="Password" required>
+                    </div>
+                    <div class="mb-3 row">
+                        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Login" />       
+                    </div>
+                    <input type="hidden" name="next" value="{{ next }}">
+                    <p>
+                        Not a member?
+                        <a href="{% url 'registration_register' %}">Register</a>
+                    </p>
+                </form>        
+            </div>
+        </div>
     </div>
 {% endblock %}

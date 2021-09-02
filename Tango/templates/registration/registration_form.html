@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Register
+{% endblock title %}
+
+{% block content %}
+    <div id="registration-form" class="w-md">
+        <div class="card border-radius-10">
+            <div class="card-body text-center ">
+                <h1 class="form-signin-heading">Register here</h1>
+                <div class="margin-sm ">
+                    <form action="{% url 'registration_register' %}" method="post" role="form">
+                        {% csrf_token %}
+                        <div class="mb-3 row">
+                            <p class="required">
+                                <input type="text" class="form-control" name="username" maxlength="150" autofocus="" required="" id="id_username" placeholder="Enter username"> 
+                            </p>
+                        </div>
+                        <div class="mb-3 row">
+                            <p class="required">
+                                <input type="email" class="form-control" name="email" required="" id="id_email" placeholder="Email">
+                            </p>
+                        </div>
+                        <div class="mb-3 row">
+                            <p class="required">
+                                <input type="password" class="form-control" name="password1" autocomplete="new-password" required="" id="id_password1" placeholder="Enter password"> 
+                                <span class="helptext"></span>
+                            </p>
+                        </div>
+                        <div class="mb-3 row">
+                            <p class="required">
+                                <input type="password" class="form-control" name="password2" autocomplete="new-password" required="" id="id_password2" placeholder="Confirm password"> 
+                            </p> 
+                        </div>
+                        <div class="mb-3 row">
+                            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Register">
+                        </div>
+                    </form>    
+                    <p>
+                        Already have an account?
+                        <a href="{% url 'auth_login' %}">Login</a>
+                    </p>
+            
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock content %}

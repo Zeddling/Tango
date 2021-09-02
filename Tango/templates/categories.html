@@ -1,8 +1,8 @@
 <ul>
     {% if cats %}
         {% for c in cats %}
-            <li>
-                <a href="{% url 'show_category' c.slug %}">
+            <li class="list-unstyled margin-bottom-sm ">
+                <a href="{% url 'show_category' c.slug %}" class="sidebar-link">
                     {{ c.name }}
                 </a>
             </li>

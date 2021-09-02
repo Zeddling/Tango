@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{selectedUser.username}} Profile
+{% endblock title %}
+
+{% block content %}
+    <div class="text-center">
+        <h1>{{selectedUser.username}}'s Profile</h1>
+    </div>
+
+    <div id="profile-data" class="row justify-content-center text-center">
+        {% if profile.picture %}  
+            <img src="{{ MEDIA_URL }}{{profile.picture}}" alt="{{user.username}}" id="profile-picture">  
+        {% else %}
+        <img src="http://lorempixel.com/300/300/people/" alt="{{user.username}}" id="profile-picture">  
+        {% endif %}
+
+        <p>
+            <strong>Username</strong>: {{user.username}}
+        </p>
+        <p>
+            <strong>Email</strong>: {{ selectedUser.email }}
+        </p>
+
+        <div>
+            {% if selectedUser.username == user.username %}
+                <form action="{% url 'profile' user.username %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Update">
+                </form>
+            {% else %}
+                <p>
+                    <strong>Email:</strong>
+                    {{ selectedUser.email }}
+                </p>
+                <p>
+                    <strong>
+                        <a href="{{profile.website}}">{{profile.website}}</a>
+                    </strong>
+                </p>
+            {% endif %}
+        </div>
+    </div>
+
+
+    
+
+{% endblock content %}

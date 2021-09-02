@@ -19,17 +19,13 @@ from django.conf.urls import include
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-from registration.backends.simple.views import RegistrationView
+from rango.views import ModifiedRegistrationView
 
-#   Handle on register redirection
-class ModifiedRegistrationView(RegistrationView):
-    def get_success_url(self, user):
-        return '/rango'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('registration.backends.default.urls')),
     path('accounts/register', ModifiedRegistrationView.as_view(), name='registration_register'),
+    path('accounts/', include('registration.backends.default.urls')),
     path('rango/', include('rango.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

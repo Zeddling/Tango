@@ -186,3 +186,13 @@ class PageFormTests(TestCase):
     def test_assert_form_is_generated(self):
         response = self.client.get(reverse('add_page', args=['python']))
         self.assertIn(b'<label', response.content)
+
+class UserProfileFormTests(TestCase):
+    def test_user_profile_form_page_exists(self):
+        response = self.client.get(reverse('register_profile'))
+        self.assertTemplateUsed(response, 'rango/register_profile.html')
+
+class UserProfilePageTests(TestCase):
+    def test_user_profile_page_exists(self):
+        response = self.client.get(reverse('profile'))
+        self.assertTemplateUsed(response, 'rango/profile.html')
